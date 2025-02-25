@@ -25,4 +25,9 @@ app.all("*", (req, res) =>
   })
 );
 
+app.use((err, req, res, next) => {
+  if (res.statusCode !== 400) res.status(500);
+  return res.json({ error: err.message });
+});
+
 app.listen(PORT, () => console.log(`Server now listening on PORT ${PORT}`));

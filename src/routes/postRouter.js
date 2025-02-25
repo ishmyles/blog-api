@@ -1,5 +1,6 @@
 import { Router } from "express";
 import controller from "../controllers/index.js";
+import asyncWrapper from "express-async-handler";
 
 const { postController } = controller;
 
@@ -7,28 +8,41 @@ const postRouter = Router();
 
 // Blog
 
-postRouter.get("/", postController.listPosts);
+postRouter.get("/", asyncWrapper(postController.listPosts));
 
-postRouter.post("/new", postController.createPost);
+postRouter.post("/new", asyncWrapper(postController.createPost));
 
-postRouter.get("/:postId", postController.listSpecificPost);
+postRouter.get("/:postId", asyncWrapper(postController.listPostById));
 
-postRouter.put("/:postId/update", postController.updatePost);
+postRouter.put("/:postId/update", asyncWrapper(postController.updatePost));
 
-postRouter.delete("/:postId/delete", postController.deletePost);
+postRouter.delete("/:postId/delete", asyncWrapper(postController.deletePost));
 
 // Blog Comments
 
-postRouter.get("/:postId/comments", postController.listPostComments);
+postRouter.get(
+  "/:postId/comments",
+  asyncWrapper(postController.listPostComments)
+);
+
+postRouter.post(
+  "/:postId/comments",
+  asyncWrapper(postController.createPostComment)
+);
+
+postRouter.get(
+  "/:postId/comments/:commentId",
+  asyncWrapper(postController.listCommentById)
+);
 
 postRouter.put(
   "/:postId/comments/:commentId/update",
-  postController.updatePostComment
+  asyncWrapper(postController.updatePostComment)
 );
 
 postRouter.delete(
   "/:postId/comments/:commentId/delete",
-  postController.deletePostComment
+  asyncWrapper(postController.deletePostComment)
 );
 
 export default postRouter;
