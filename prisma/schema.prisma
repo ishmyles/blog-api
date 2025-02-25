@@ -38,18 +38,21 @@ model Profile {
 }
 
 model Post {
-  id          String   @id @default(uuid())
+  id          String    @id @default(uuid())
   title       String
   content     String
-  user        User     @relation(fields: [author], references: [username], onDelete: Cascade)
+  user        User      @relation(fields: [author], references: [username], onDelete: Cascade)
   author      String
-  postedAt    DateTime @default(now())
-  isPublished Boolean  @default(true)
+  postedAt    DateTime  @default(now())
+  isPublished Boolean   @default(true)
+  comments    Comment[]
 }
 
 model Comment {
   id            String   @id @default(uuid())
   comment       String   @db.VarChar(255)
+  post          Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId        String
   user          User     @relation(fields: [commentAuthor], references: [username], onDelete: Cascade)
   commentAuthor String
   postedAt      DateTime @default(now())
