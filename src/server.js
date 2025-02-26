@@ -14,6 +14,8 @@ app.use("/login", routes.loginRouter);
 
 app.use("/logout", routes.logoutRouter);
 
+app.use("/user", routes.userRouter);
+
 app.use("/profiles", routes.profileRouter);
 
 app.all("*", (req, res) =>

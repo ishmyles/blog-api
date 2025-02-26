@@ -8,4 +8,6 @@ const profileRouter = Router();
 
 profileRouter.get("/:userId", asyncWrapper(profileController.listProfile));
 
+profileRouter.put("/:userId", asyncWrapper(profileController.updateProfile));
+
 export default profileRouter;

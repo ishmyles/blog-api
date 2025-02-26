@@ -3,6 +3,7 @@ import loginRouter from "./loginRouter.js";
 import logoutRouter from "./logoutRouter.js";
 import signupRouter from "./signupRouter.js";
 import profileRouter from "./profileRouter.js";
+import userRouter from "./userRouter.js";
 
 export default {
   postRouter,
@@ -10,4 +11,5 @@ export default {
   logoutRouter,
   signupRouter,
   profileRouter,
+  userRouter,
 };
