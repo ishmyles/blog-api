@@ -1,10 +1,10 @@
 import { Router } from "express";
 import controller from "../controllers/index.js";
 
-const { logoutController } = controller;
+const { authController } = controller;
 
 const logoutRouter = Router();
 
-logoutRouter.post("/", logoutController.logoutUser);
+logoutRouter.post("/", authController.logoutUser);
 
 export default logoutRouter;

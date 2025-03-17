@@ -4,8 +4,8 @@ import controller from "../controllers/index.js";
 
 const { authController } = controller;
 
-const loginRouter = Router();
+const refreshRouter = Router();
 
-loginRouter.post("/", asyncWrapper(authController.loginUser));
+refreshRouter.get("/", asyncWrapper(authController.refreshAccessToken));
 
-export default loginRouter;
+export default refreshRouter;

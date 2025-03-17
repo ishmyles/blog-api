@@ -1,6 +1,7 @@
 import { Router } from "express";
 import controller from "../controllers/index.js";
 import asyncWrapper from "express-async-handler";
+import passport from "passport";
 
 const { postController } = controller;
 
@@ -10,13 +11,25 @@ const postRouter = Router();
 
 postRouter.get("/", asyncWrapper(postController.listPosts));
 
-postRouter.post("/new", asyncWrapper(postController.createPost));
+postRouter.post(
+  "/new",
+  passport.authenticate("jwt", { session: false }),
+  asyncWrapper(postController.createPost)
+);
 
 postRouter.get("/:postId", asyncWrapper(postController.listPostById));
 
-postRouter.put("/:postId/update", asyncWrapper(postController.updatePost));
+postRouter.put(
+  "/:postId/update",
+  passport.authenticate("jwt", { session: false }),
+  asyncWrapper(postController.updatePost)
+);
 
-postRouter.delete("/:postId/delete", asyncWrapper(postController.deletePost));
+postRouter.delete(
+  "/:postId/delete",
+  passport.authenticate("jwt", { session: false }),
+  asyncWrapper(postController.deletePost)
+);
 
 // Blog Comments
 
@@ -27,6 +40,7 @@ postRouter.get(
 
 postRouter.post(
   "/:postId/comments",
+  passport.authenticate("jwt", { session: false }),
   asyncWrapper(postController.createPostComment)
 );
 
@@ -37,11 +51,13 @@ postRouter.get(
 
 postRouter.put(
   "/:postId/comments/:commentId/update",
+  passport.authenticate("jwt", { session: false }),
   asyncWrapper(postController.updatePostComment)
 );
 
 postRouter.delete(
   "/:postId/comments/:commentId/delete",
+  passport.authenticate("jwt", { session: false }),
   asyncWrapper(postController.deletePostComment)
 );
 
